@@ -8,7 +8,7 @@ _projects = pd.read_excel('projects.xlsx')
 
 
 def print_menu():
-    print('\n----- Options ----- ')
+    print_header('Options')
     print('1. Open and Activate Projects')
     # print('2. Save a new Project')
     # print('3. Delete Project')
@@ -28,7 +28,25 @@ def build_path(id, root = 'C:\\Code\\Python\\'):
     return root + _projects[['ID', 'folder']].query(f'ID == {id}').folder.values[0]
 
 
+def print_header(placeholder: str):
+    size = len(placeholder)
+    print('='*size)
+    print(Fore.GREEN + placeholder + Style.RESET_ALL)
+    print('='*size)
+
+
+def clear_terminal():
+    """Clears the terminal screen."""
+    # For Windows
+    if os.name == 'nt':
+        _ = os.system('cls')
+    # For macOS and Linux
+    else:
+        _ = os.system('clear')
+
+
 while True:
+    clear_terminal()
     print_menu()
     op = wait_user_input('>> ')
 
@@ -38,7 +56,8 @@ while True:
 
     # Options
     if op == '1':
-        print(Fore.GREEN + '\nIn what project do you want to work today?\n' + Style.RESET_ALL)
+        # print(Fore.GREEN + '\nIn what project do you want to work today?\n' + Style.RESET_ALL)
+        print_header('In what project do you want to work today?')
         print_projects(_projects)
         selected_project = wait_user_input('>> ')
 
