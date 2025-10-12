@@ -19,6 +19,8 @@ def print_projects(_projects: pd.DataFrame):
     for i in _projects[['ID', 'name']].values:
         print(f'{i[0]}. {i[1]}')
 
+    print('\n0. Close')
+
 
 def wait_user_input(placeholder: str):
     return input(Fore.BLUE + f'{placeholder} ' + Style.RESET_ALL)
@@ -29,10 +31,10 @@ def build_path(id, root = 'C:\\Code\\Python\\'):
 
 
 def print_header(placeholder: str):
-    size = len(placeholder)
-    print('='*size)
-    print(Fore.GREEN + placeholder + Style.RESET_ALL)
-    print('='*size)
+    size = len(placeholder)+2
+    print('╔' + '═'*size + '╗')
+    print('║ ' + Fore.GREEN + placeholder + Style.RESET_ALL + ' ║')
+    print('╚' + '═'*size + '╝')
 
 
 def clear_terminal():
@@ -60,6 +62,11 @@ while True:
         print_header('In what project do you want to work today?')
         print_projects(_projects)
         selected_project = wait_user_input('>> ')
+
+        if selected_project ==  '0':
+            continue
+
+        print(Fore.YELLOW + 'Working on it' + Style.RESET_ALL)
 
         path = build_path(selected_project)
         os.system(f'start cmd /k "cd /d {path} && .\\.venv\\Scripts\\activate"')
