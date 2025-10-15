@@ -1,16 +1,20 @@
 import os
+from time import sleep
 import pandas as pd
 from colorama import Fore, Back, Style, init
 
 init()
 
-_projects = pd.read_excel('projects.xlsx')
+# Variables
+projects_sheet = 'projects.xlsx'
+
+_projects = pd.read_excel(projects_sheet)
 
 
 def print_menu():
     print_header('Options')
     print('1. Open and Activate Projects')
-    # print('2. Save a new Project')
+    print('2. Open Projects Sheet')
     # print('3. Delete Project')
     print('\n(Type "x" to leave...)\n')
 
@@ -72,3 +76,8 @@ while True:
         os.system(f'start cmd /k "cd /d {path} && .\\.venv\\Scripts\\activate"')
 
         print('Done!')
+
+    if op == '2':
+        print(Fore.YELLOW + '\nOpening...' + Style.RESET_ALL)
+        os.startfile(projects_sheet)
+        sleep(5)
